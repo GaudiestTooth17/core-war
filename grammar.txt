@@ -1,0 +1,51 @@
+0187         assembly_file:
+0188                 list
+0189         list:
+0190                 line | line list
+0191         line:
+0192                 comment | instruction
+0193         comment:
+0194                 ; v* EOL | EOL
+0195         instruction:
+0196                 label_list operation mode field comment |
+0197                 label_list operation mode expr , mode expr comment
+0198         label_list:
+0199                 label | label label_list | label newline label_list | e
+0200         label:
+0201                 alpha alphanumeral*
+0202         operation:
+0203                 opcode | opcode.modifier
+0204         opcode:
+0205                 DAT | MOV | ADD | SUB | MUL | DIV | MOD |
+0206                 JMP | JMZ | JMN | DJN | CMP | SLT | SPL |
+0207                 ORG | EQU | END
+0208         modifier:
+0209                 A | B | AB | BA | F | X | I
+0210         mode:
+0211                 # | $ | @ | < | > | e
+0212         expr:
+0213                 term |
+0214                 term + expr | term - expr |
+0215                 term * expr | term / expr |
+0216                 term % expr
+0217         term:
+0218                 label | number | (expression)
+0219         number:
+0220                 whole_number | signed_integer
+0221         signed_integer:
+0222                 +whole_number | -whole_number
+0223         whole_number:
+0224                 numeral+
+0225         alpha:
+0226                 A-Z | a-z | _
+0227         numeral:
+0228                 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+0229         alphanumeral:
+0230                 alpha | numeral
+0231         v:
+0232                 ^EOL
+0233         EOL:
+0234                 newline | EOF
+0235         newline:
+0236                 LF | CR | LF CR | CR LF
+0237         e:
